@@ -3380,6 +3380,10 @@ the specific language governing permissions and limitations under the Apache Lic
                 opts = args.length === 0 ? {} : $.extend({}, args[0]);
                 opts.element = $(this);
 
+                if (opts.element.data("language")) {
+                    $.extend($.fn.select2.defaults, $.fn.select2.locales[opts.element.data("language")]);
+                }
+
                 if (opts.element.get(0).tagName.toLowerCase() === "select") {
                     multiple = opts.element.prop("multiple");
                 } else {
@@ -3509,7 +3513,51 @@ the specific language governing permissions and limitations under the Apache Lic
          formatSearching: function () { return "Searching…"; }
     };
 
-    $.extend($.fn.select2.defaults, $.fn.select2.locales['en']);
+    $.fn.select2.locales['es'] = {
+        formatMatches: function (matches) { if (matches === 1) { return "Un resultado disponible, presione enter para seleccionarlo."; } return matches + " resultados disponibles, use las teclas de dirección para navegar."; },
+        formatNoMatches: function () { return "No se encontraron resultados"; },
+        formatInputTooShort: function (input, min) { var n = min - input.length; return "Por favor, introduzca " + n + " car" + (n == 1? "ácter" : "acteres"); },
+        formatInputTooLong: function (input, max) { var n = input.length - max; return "Por favor, elimine " + n + " car" + (n == 1? "ácter" : "acteres"); },
+        formatSelectionTooBig: function (limit) { return "Sólo puede seleccionar " + limit + " elemento" + (limit == 1 ? "" : "s"); },
+        formatLoadMore: function (pageNumber) { return "Cargando más resultados…"; },
+        formatSearching: function () { return "Buscando…"; },
+        formatAjaxError: function() { return "La carga falló"; }
+    };
+
+    $.fn.select2.locales['fr'] = {
+        formatMatches: function (matches) { return matches + " résultats sont disponibles, utilisez les flèches haut et bas pour naviguer."; },
+        formatNoMatches: function () { return "Aucun résultat trouvé"; },
+        formatInputTooShort: function (input, min) { var n = min - input.length; return "Saisissez " + n + " caractère" + (n == 1? "" : "s") + " supplémentaire" + (n == 1? "" : "s") ; },
+        formatInputTooLong: function (input, max) { var n = input.length - max; return "Supprimez " + n + " caractère" + (n == 1? "" : "s"); },
+        formatSelectionTooBig: function (limit) { return "Vous pouvez seulement sélectionner " + limit + " élément" + (limit == 1 ? "" : "s"); },
+        formatLoadMore: function (pageNumber) { return "Chargement de résultats supplémentaires…"; },
+        formatSearching: function () { return "Recherche en cours…"; }
+    };
+
+    $.fn.select2.locales['pt-BR'] = {
+        formatNoMatches: function () { return "Nenhum resultado encontrado"; },
+        formatAjaxError: function () { return "Erro na busca"; },
+        formatInputTooShort: function (input, min) { var n = min - input.length; return "Digite " + (min == 1 ? "" : "mais") + " " + n + " caracter" + (n == 1? "" : "es"); },
+        formatInputTooLong: function (input, max) { var n = input.length - max; return "Apague " + n + " caracter" + (n == 1? "" : "es"); },
+        formatSelectionTooBig: function (limit) { return "Só é possível selecionar " + limit + " elemento" + (limit == 1 ? "" : "s"); },
+        formatLoadMore: function (pageNumber) { return "Carregando mais resultados…"; },
+        formatSearching: function () { return "Buscando…"; }
+    };
+
+    $.fn.select2.locales['pt-PT'] = {
+        formatNoMatches: function () { return "Nenhum resultado encontrado"; },
+        formatInputTooShort: function (input, min) { var n = min - input.length; return "Introduza " + n + " car" + (n == 1 ? "ácter" : "acteres"); },
+        formatInputTooLong: function (input, max) { var n = input.length - max; return "Apague " + n + " car" + (n == 1 ? "ácter" : "acteres"); },
+        formatSelectionTooBig: function (limit) { return "Só é possível selecionar " + limit + " elemento" + (limit == 1 ? "" : "s"); },
+        formatLoadMore: function (pageNumber) { return "A carregar mais resultados…"; },
+        formatSearching: function () { return "A pesquisar…"; }
+    };
+
+
+    var language = "es";
+    /*alert($('#state_select').data("language"));*/
+    /*$.extend($.fn.select2.defaults, $.fn.select2.locales[language]);*/
+    
 
     $.fn.select2.ajaxDefaults = {
         transport: $.ajax,
